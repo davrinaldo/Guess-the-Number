@@ -1,5 +1,8 @@
 # Guess The Number
 
+![Descrição da Imagem](images/guess-the-number-small.webp)
+
+
 This is a simple Python console game called "Guess The Number".
 
 ## How to Play
