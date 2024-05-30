@@ -24,6 +24,7 @@ SOFTWARE.
 
 
 import random
+# from .player import Player
 
 
 class GuessTheNumber:
@@ -41,13 +42,14 @@ Digite 1, 2 ou 3 para continuar:"""
 
     MSG_GUESS = 'Digite seu Palpite: '
 
-    def __init__(self):
+    def __init__(self, player, player_attempts=0):
         """Inicializa a classe GuessTheNumber."""
 
+        self.player = player
         self.max_num = 3
-        self.max_num = (self.get_user_number(self.MESSAGE_DIFFICULTY)*20) // 2
+        self.max_num = (self.get_user_number(self.MESSAGE_DIFFICULTY)*2) // 2
         self.secret_number = self.generate_number_secret()
-        self.attempts = 0
+        self.player_attempts = player_attempts
         self.game_play()
 
     def get_user_number(self, prompt):
@@ -81,18 +83,22 @@ Digite 1, 2 ou 3 para continuar:"""
 
         while True:
             guess = self.get_user_number(self.MSG_GUESS)
-            self.attempts += 1
+            self.player.attempts += 1
 
             if guess == self.secret_number:
-                print('Parabéns! Você acertou o número secreto!')
+                print(f'Parabéns, {self.player.name}! Você acertou', end=' ')
                 break
+
             elif guess < self.secret_number:
                 print('\033[1;36mTente um número Maior.\033[m')
+
             else:
                 print('\033[1;36mTente um número Menor.\033[m')
 
-        print(f'Você acertou o número secreto em {self.attempts} tentativas.')
-        return self.attempts
+        if self.player.attempts == 1:
+            print(f'em APENAS {self.player.attempts} tentativa')
 
+        else:
+            print(f'em {self.player.attempts} tentativas')
 
-game = GuessTheNumber()
+        return self.player.attempts
