@@ -75,6 +75,7 @@ Digite 1, 2 ou 3 para continuar:"""
         return random.randint(1, self.max_num)
 
     def game_play(self):
+        """Inicia o jogo 'Adivinhe o Número'."""
 
         print(f'\n\033[1;35mTENTE UM NÚMERO ENTRE 1 E {self.max_num}\033[m\n')
 
