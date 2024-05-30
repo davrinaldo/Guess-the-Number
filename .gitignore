@@ -1,0 +1,16 @@
+# Arquivos e diretórios a serem ignorados pelo Git
+
+# Diretório de ambiente virtual Python
+venv/
+
+# Arquivos de compilação Python
+*.pyc
+
+# Diretório de documentação
+docs/
+
+# Outros arquivos de configuração ou temporários
+config.ini
+*.log
+
+tests/
