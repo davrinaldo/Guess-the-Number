@@ -30,22 +30,25 @@ class GuessTheNumber:
     """Classe para o jogo 'Adivinhe o Número'."""
 
     MESSAGE_DIFFICULTY = """
-Escolha a dificuldade, 1 Fácil, 2 Médio ou 3 difícil!
+\033[1;33mEscolha a dificuldade, 1 Fácil, 2 Médio ou 3 difícil!\033[m
 Digite 1, 2 ou 3 para continuar:"""
 
     MESSAGE_DIFFICULTY_ERROR = """
 \033[1;31mDigite apenas 1, 2 ou 3 para selecionar uma Dificuldade!\033[m"""
 
     MESSAGE_NUMBER_ERROR = """
-\033[1;31mDIGITE APENAS NÚMEROS ENTRE 1 e"""
+\033[1;31mDIGITE APENAS NÚMEROS ENTRE 1 E"""
+
+    MSG_GUESS = 'Digite seu Palpite: '
 
     def __init__(self):
         """Inicializa a classe GuessTheNumber."""
 
         self.max_num = 3
-        self.max_num = self.get_user_number(self.MESSAGE_DIFFICULTY)
+        self.max_num = (self.get_user_number(self.MESSAGE_DIFFICULTY)*20) // 2
         self.secret_number = self.generate_number_secret()
         self.attempts = 0
+        self.game_play()
 
     def get_user_number(self, prompt):
         """Solicita ao usuário um número de acordo com o prompt fornecido."""
@@ -64,12 +67,31 @@ Digite 1, 2 ou 3 para continuar:"""
         if 1 <= number <= self.max_num:
             return True
         else:
-            print(self.MESSAGE_DIFFICULTY_ERROR)
+            print(self.MESSAGE_NUMBER_ERROR, f'{self.max_num}!\033[m')
             return False
 
     def generate_number_secret(self):
         """Gera um número secreto dentro do intervalo de dificuldade."""
         return random.randint(1, self.max_num)
+
+    def game_play(self):
+
+        print(f'\n\033[1;35mTENTE UM NÚMERO ENTRE 1 E {self.max_num}\033[m\n')
+
+        while True:
+            guess = self.get_user_number(self.MSG_GUESS)
+            self.attempts += 1
+
+            if guess == self.secret_number:
+                print('Parabéns! Você acertou o número secreto!')
+                break
+            elif guess < self.secret_number:
+                print('\033[1;36mTente um número Maior.\033[m')
+            else:
+                print('\033[1;36mTente um número Menor.\033[m')
+
+        print(f'Você acertou o número secreto em {self.attempts} tentativas.')
+        return self.attempts
 
 
 game = GuessTheNumber()
